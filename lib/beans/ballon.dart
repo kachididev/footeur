@@ -1,10 +1,13 @@
 import 'package:flutter/material.dart';
 
 class Ballon extends AnimatedWidget {
-  final icon;
-  const Ballon(
-      {Key? key, required Animation<double> animation, required this.icon})
-      : super(key: key, listenable: animation);
+  double? x, y = 0;
+  Ballon({
+    Key? key,
+    required Animation<double> animation,
+    this.x,
+    this.y,
+  }) : super(key: key, listenable: animation);
 
   // Make the Tweens static because they don't change.
   static final _opacityTween = Tween<double>(begin: 0.1, end: 1);
@@ -13,7 +16,32 @@ class Ballon extends AnimatedWidget {
   @override
   Widget build(BuildContext context) {
     final animation = listenable as Animation<double>;
-    return Center(
+    return Padding(
+      padding: EdgeInsets.all(5),
+      child: Align(
+        alignment: Alignment(x!, y!),
+        child: Card(
+          elevation: 1,
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(25),
+          ),
+          child: Container(
+            height: 50,
+            width: 50,
+            decoration: BoxDecoration(
+              image: DecorationImage(
+                image: ExactAssetImage("assets/ball-01.png"),
+                fit: BoxFit.fill,
+              ),
+              borderRadius: BorderRadius.circular(25),
+            ),
+          ),
+        ),
+      ),
+    );
+
+    /*
+    Center(
       child: Opacity(
         opacity: _opacityTween.evaluate(animation),
         child: Container(
@@ -27,6 +55,6 @@ class Ballon extends AnimatedWidget {
         ),
       ),
     );
+    */
   }
 }
-
