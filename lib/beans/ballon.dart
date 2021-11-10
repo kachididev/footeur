@@ -1,17 +1,24 @@
 import 'package:flutter/material.dart';
 
 class Ballon extends AnimatedWidget {
-  double? x, y = 0;
+  late double xd = 0, yd = 0;
+  late double xa = 0, ya = 0;
+
   Ballon({
     Key? key,
     required Animation<double> animation,
-    this.x,
-    this.y,
-  }) : super(key: key, listenable: animation);
+    required this.xa,
+    required this.ya,
+    required this.xd,
+    required this.yd,
+  }) : super(key: key, listenable: animation) {
+    _yTween = Tween<double>(begin: ya, end: yd);
+    _xTween = Tween<double>(begin: xa, end: xd);
+  }
 
   // Make the Tweens static because they don't change.
-  static final _opacityTween = Tween<double>(begin: 0.1, end: 1);
-  static final _sizeTween = Tween<double>(begin: 0, end: 25);
+  var _yTween; // = Tween<double>(begin: xa, end: xd);
+  var _xTween; // = Tween<double>(begin: 0, end: 25);
 
   @override
   Widget build(BuildContext context) {
@@ -19,21 +26,22 @@ class Ballon extends AnimatedWidget {
     return Padding(
       padding: EdgeInsets.all(5),
       child: Align(
-        alignment: Alignment(x!, y!),
+        alignment:
+            Alignment(_xTween.evaluate(animation), _yTween.evaluate(animation)),
         child: Card(
           elevation: 1,
           shape: RoundedRectangleBorder(
             borderRadius: BorderRadius.circular(25),
           ),
           child: Container(
-            height: 50,
-            width: 50,
+            height: 40,
+            width: 40,
             decoration: BoxDecoration(
-              image: DecorationImage(
+              image: const DecorationImage(
                 image: ExactAssetImage("assets/ball-01.png"),
                 fit: BoxFit.fill,
               ),
-              borderRadius: BorderRadius.circular(25),
+              borderRadius: BorderRadius.circular(20),
             ),
           ),
         ),

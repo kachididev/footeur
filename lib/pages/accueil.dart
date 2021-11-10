@@ -1,15 +1,11 @@
 import 'package:flutter/material.dart';
 
-
-
 class Accueil extends StatefulWidget {
-
   @override
   State<Accueil> createState() => _Accueil();
 }
 
 class _Accueil extends State<Accueil> {
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -20,6 +16,7 @@ class _Accueil extends State<Accueil> {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
+            //AnimatedAlign(),
             const Text(
               'You have pushed the button this many times:',
             ),
